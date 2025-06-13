@@ -91,7 +91,7 @@ def handle_movies(li,item,searchstring=None):
         for stream in value:
             if 'video' in key:
                 hasVideo = True
-            info_tagger.add_stream_info(key, videostream_values)
+            info_tagger.add_stream_info(key, value)
 
     if not hasVideo: # if duration wasnt in the streaminfo try adding the scraped one
         stream = {'duration': item['runtime']}
