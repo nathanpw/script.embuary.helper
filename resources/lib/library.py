@@ -79,8 +79,8 @@ def handle_movies(li,item,searchstring=None):
     _set_unique_properties(li_item,director,'director')
     _set_unique_properties(li_item,writer,'writer')
 
-    li_item.setProperty('resumetime', str(item['resume']['position']))
-    li_item.setProperty('totaltime', str(item['resume']['total']))
+    info_tagger = ListItemInfoTag(li_item, 'video')
+    info_tagger._info_tag.setResumePoint(str(item['resume']['position']), str(item['resume']['total']))
 
     li_item.setArt(item['art'])
     li_item.setArt({'icon': 'DefaultVideo.png'})
@@ -90,7 +90,7 @@ def handle_movies(li,item,searchstring=None):
         for stream in value:
             if 'video' in key:
                 hasVideo = True
-            li_item.addStreamInfo(key, stream)
+            info_tagger.add_stream_info(key, videostream_values)
 
     if not hasVideo: # if duration wasnt in the streaminfo try adding the scraped one
         stream = {'duration': item['runtime']}
@@ -262,8 +262,8 @@ def handle_episodes(li,item):
     _set_unique_properties(li_item,director,'director')
     _set_unique_properties(li_item,writer,'writer')
 
-    li_item.setProperty('resumetime', str(item['resume']['position']))
-    li_item.setProperty('totaltime', str(item['resume']['total']))
+    info_tagger = ListItemInfoTag(li_item, 'video')
+    info_tagger._info_tag.setResumePoint(str(item['resume']['position']), str(item['resume']['total']))
     li_item.setProperty('season_label', item.get('season_label', ''))
 
     li_item.setArt({'icon': 'DefaultTVShows.png',
