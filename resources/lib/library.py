@@ -8,6 +8,7 @@ import xbmcgui
 from time import gmtime, strftime
 from resources.lib.json_map import *
 from resources.lib.helper import *
+from infotagger.listitem import ListItemInfoTag
 
 ########################
 
@@ -80,7 +81,7 @@ def handle_movies(li,item,searchstring=None):
     _set_unique_properties(li_item,writer,'writer')
 
     info_tagger = ListItemInfoTag(li_item, 'video')
-    info_tagger._info_tag.setResumePoint(str(item['resume']['position']), str(item['resume']['total']))
+    info_tagger._info_tag.setResumePoint(float(item['resume']['position']), float(item['resume']['total']))
 
     li_item.setArt(item['art'])
     li_item.setArt({'icon': 'DefaultVideo.png'})
@@ -263,7 +264,7 @@ def handle_episodes(li,item):
     _set_unique_properties(li_item,writer,'writer')
 
     info_tagger = ListItemInfoTag(li_item, 'video')
-    info_tagger._info_tag.setResumePoint(str(item['resume']['position']), str(item['resume']['total']))
+    info_tagger._info_tag.setResumePoint(float(item['resume']['position']), float(item['resume']['total']))
     li_item.setProperty('season_label', item.get('season_label', ''))
 
     li_item.setArt({'icon': 'DefaultTVShows.png',
